@@ -18,6 +18,18 @@ public class RegistrationFrom extends javax.swing.JFrame {
     public RegistrationFrom() {
         initComponents();
     }
+    
+    public int tryParseInt(String value) 
+    {
+        try 
+        {
+            return Integer.parseInt(value);
+        } 
+        catch (NumberFormatException e) 
+        {
+            return -1;
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -142,13 +154,51 @@ public class RegistrationFrom extends javax.swing.JFrame {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
+        boolean hasError = false;
+        StringBuilder errorFields = new StringBuilder();
+
         String firstName = firstNameText.getText();
         String lastName = lastNameText.getText();
         String email = emailText.getText();
         String message = messageTextArea.getText();
-        String age = ageText.getText();
-        String outputMessage = "Name: " + firstName + " " + lastName + "\n" + "Age: " + age + "\n" + "Email: " + email + "\n" + "Message: " + message + "\n";
-        JOptionPane.showMessageDialog(this, outputMessage, "Customer information", HEIGHT);
+        int age = tryParseInt(ageText.getText());
+
+        if(firstName.isEmpty())
+        {
+            errorFields.append("First name is empty. \n");
+            hasError = true;
+        }
+        if(lastName.isEmpty())
+        {
+            errorFields.append("Last name is empty. \n");
+            hasError = true;
+        }
+        if(email.isEmpty())
+        {
+            errorFields.append("Email is empty. \n");
+            hasError = true;
+        }
+        else if(!email.contains("@"))
+        {
+            errorFields.append("Email is invalid. \n");
+            hasError = true;
+        }
+        if(age == -1)
+        {
+            errorFields.append("Age is invalid. \n");
+            hasError = true;
+        }
+
+        if(hasError)
+        {
+            String errorMessage = "Invalid input, below are the invalid fields:\n" + errorFields;
+            JOptionPane.showMessageDialog(this, errorMessage, "Customer information", HEIGHT); 
+        }
+        else
+        {
+            String outputMessage = "Name: " + firstName + " " + lastName + "\n" + "Age: " + age + "\n" + "Email: " + email + "\n" + "Message: " + message + "\n";
+            JOptionPane.showMessageDialog(this, outputMessage, "Customer information", HEIGHT); 
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     /**
