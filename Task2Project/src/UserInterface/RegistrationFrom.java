@@ -57,6 +57,7 @@ public class RegistrationFrom extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        mainTitle.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         mainTitle.setText("Register");
 
         firstNameLabel.setText("First Name");
@@ -85,35 +86,35 @@ public class RegistrationFrom extends javax.swing.JFrame {
         basePanelLayout.setHorizontalGroup(
             basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(basePanelLayout.createSequentialGroup()
-                .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(55, 55, 55)
+                .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(submitButton)
                     .addGroup(basePanelLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(submitButton)
-                            .addGroup(basePanelLayout.createSequentialGroup()
-                                .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(firstNameLabel)
-                                    .addComponent(lastNameLabel)
-                                    .addComponent(ageLabel)
-                                    .addComponent(emailLabel)
-                                    .addComponent(messageLabel))
-                                .addGap(48, 48, 48)
-                                .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(firstNameText)
-                                    .addComponent(lastNameText)
-                                    .addComponent(ageText)
-                                    .addComponent(emailText)
-                                    .addComponent(messageScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)))))
-                    .addGroup(basePanelLayout.createSequentialGroup()
-                        .addGap(221, 221, 221)
-                        .addComponent(mainTitle)))
+                        .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(firstNameLabel)
+                            .addComponent(lastNameLabel)
+                            .addComponent(ageLabel)
+                            .addComponent(emailLabel)
+                            .addComponent(messageLabel))
+                        .addGap(48, 48, 48)
+                        .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(firstNameText)
+                            .addComponent(lastNameText)
+                            .addComponent(ageText)
+                            .addComponent(emailText)
+                            .addComponent(messageScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))))
                 .addContainerGap(55, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mainTitle)
+                .addGap(207, 207, 207))
         );
         basePanelLayout.setVerticalGroup(
             basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(basePanelLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addComponent(mainTitle)
-                .addGap(59, 59, 59)
+                .addGap(32, 32, 32)
                 .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel)
                     .addComponent(firstNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -133,7 +134,7 @@ public class RegistrationFrom extends javax.swing.JFrame {
                 .addGroup(basePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(messageLabel)
                     .addComponent(messageScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(submitButton)
                 .addGap(18, 18, 18))
         );
@@ -161,7 +162,7 @@ public class RegistrationFrom extends javax.swing.JFrame {
         String lastName = lastNameText.getText();
         String email = emailText.getText();
         String message = messageTextArea.getText();
-        int age = tryParseInt(ageText.getText());
+        int age = tryParseInt(ageText.getText()); //tryParseInt is a function I created to check the version. tryParseInt is actually a functionality in c# which I have experience in.
 
         if(firstName.isEmpty())
         {
@@ -171,6 +172,11 @@ public class RegistrationFrom extends javax.swing.JFrame {
         if(lastName.isEmpty())
         {
             errorFields.append("Last name is empty. \n");
+            hasError = true;
+        }
+        if(age == -1)
+        {
+            errorFields.append("Age is invalid. \n");
             hasError = true;
         }
         if(email.isEmpty())
@@ -183,11 +189,12 @@ public class RegistrationFrom extends javax.swing.JFrame {
             errorFields.append("Email is invalid. \n");
             hasError = true;
         }
-        if(age == -1)
+        if(message.isEmpty())
         {
-            errorFields.append("Age is invalid. \n");
+            errorFields.append("Message is empty. \n");
             hasError = true;
         }
+        
 
         if(hasError)
         {
